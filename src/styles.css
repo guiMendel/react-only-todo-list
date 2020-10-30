@@ -1,0 +1,187 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  /* variáveis */
+  --bg-color: rgb(234, 237, 253);
+  --text-color: rgb(90, 90, 90);
+  --text-lighter-color: rgb(179, 179, 179);
+
+  font-size: 10px;
+}
+
+body {
+  background: var(--bg-color);
+  color: var(--text-color);
+  height: 100vh;
+}
+
+body,
+input,
+button,
+textarea {
+  font: 400 1.5rem/1 sans-serif;
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#container {
+  width: clamp(40rem, 40vw, 70rem);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#container > div {
+  width: 75%;
+
+  display: flex;
+  align-items: center;
+
+  border-bottom: 1px solid rgb(206, 206, 206);
+  margin-bottom: 2rem;
+}
+
+#container div input {
+  flex: 1;
+  border: none;
+  padding: 0.5rem 1rem;
+  margin-right: 0.5em;
+  height: 3rem;
+
+  background: none;
+}
+#container div input::placeholder {
+  color: var(--text-lighter-color);
+}
+
+#container div svg {
+  cursor: pointer;
+
+  transition: color 200ms;
+}
+
+#container > div > input:focus + svg {
+  /* aciona quando o usuário está com o input selecionado */
+  color: rgb(18, 150, 6);
+}
+
+/* OPÇÕES DA LISTA */
+#container header {
+  height: 4rem;
+  width: 75%;
+  margin-bottom: 2rem;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  color: var(--text-lighter-color);
+}
+
+#container header div {
+  position: relative;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+
+  width: 100%;
+  margin-bottom: 1rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+
+  transition: max-height 200ms, opacity 200ms;
+}
+
+#container header div small {
+  opacity: 0;
+  position: absolute;
+  top: 2.5rem;
+
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background: var(--bg-color);
+  z-index: 10;
+
+  color: rgb(136, 136, 136);
+
+  transition: opacity 200ms;
+}
+
+#container header div svg:hover + small {
+  opacity: 1;
+}
+
+#container header:hover {
+  color: var(--text-color);
+}
+
+#container header:hover div {
+  overflow: visible;
+  max-height: 5rem;
+  opacity: 1;
+}
+
+/* LISTA DE ITENS TO-DO */
+
+#container main {
+  width: 100%;
+  overflow-y: auto;
+  max-height: 70vh;
+}
+
+/* CADA ITEM TO-DO */
+
+.to-do {
+  display: flex;
+  align-items: center;
+
+  padding: 1rem;
+  height: 5rem;
+
+  cursor: pointer;
+}
+
+.to-do:hover {
+  border: solid rgb(206, 206, 206);
+  border-width: 1px 0;
+}
+
+.to-do span {
+  flex: 1;
+  transition: all 200ms;
+}
+
+.to-do svg {
+  /* visibility: hidden; */
+  color: var(--bg-color);
+  transition: color 200ms linear;
+}
+
+.to-do:hover svg {
+  /* visibility: visible; */
+  color: inherit;
+}
+
+.to-do svg:hover {
+  color: rgb(247, 126, 126);
+}
+
+.done {
+  text-decoration: line-through;
+  color: var(--text-lighter-color);
+}
