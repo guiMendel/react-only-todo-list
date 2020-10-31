@@ -98,7 +98,7 @@ export default function ControlMenu(list) {
       <div>
         <MdFilterList size="2rem" onClick={toggleOrder[nextSorting]} />
         <small>
-          Order by: <i>{currentSorting.replace("_", " ")}</i>
+          Ordering by: <i>{currentSorting.replace("_", " ")}</i>
         </small>
         <HiOutlineFilter size="2rem" onClick={toggleFilter[nextFilter]} />
         <small>
