@@ -7,22 +7,27 @@ import ControlMenu from "./to-do-list-controller";
 import Input from "./input";
 
 export default function App() {
+  const [currentFilter, setCurrentFilter] = useState("All");
   const [idCounter, setIdCounter] = useState(3);
   const [items, setItems] = useState([
     {
       text: "Lorem Item",
       id: 1,
-      visible: true
+      visible: true,
+      done: false
     },
     {
       text: "Lorem Biden",
       id: 2,
-      visible: true
+      visible: true,
+      done: false
     }
   ]);
 
   function appendItem(item) {
     if (!item.text) return;
+    item.done = false;
+    item.visible = true;
     item.id = idCounter;
     setIdCounter(idCounter + 1);
     setItems([item, ...items]);
@@ -42,9 +47,19 @@ export default function App() {
       {/* campo para adicionar um novo item */}
       <Input appendItem={appendItem} />
       {/* opções de lista */}
-      <ControlMenu items={items} setItems={setItems} />
+      <ControlMenu
+        items={items}
+        setItems={setItems}
+        currentFilter={currentFilter}
+        setCurrentFilter={setCurrentFilter}
+      />
       {/* lista de itens */}
-      <ToDoList itemList={items} removeItem={removeItem} />
+      <ToDoList
+        itemList={items}
+        setItemList={setItems}
+        removeItem={removeItem}
+        currentFilter={currentFilter}
+      />
     </div>
   );
 }

@@ -27,7 +27,7 @@ export default function Input({ appendItem: newItem }) {
         value={inputValue}
         onChange={handleChange}
         onKeyDown={detectEnter}
-        placeholder="Adicione um item aqui"
+        placeholder="Add a new item here"
       />
       <VscAdd size="2rem" onClick={handleSubmit} />
     </div>

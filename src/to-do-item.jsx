@@ -4,16 +4,24 @@ import "./styles.css";
 // icones
 import { VscClose } from "react-icons/vsc";
 
-export default function ToDoItem({ text, removeSelf }) {
-  const [done, setDone] = useState(false);
+export default function ToDoItem({ item, removeSelf, currentFilter }) {
+  const [done, setDone] = useState(item.done);
 
   function switchDone() {
-    setDone(!done);
+    item.done = !item.done;
+    // Verifica a filtragem e esconde o item se necessário
+    if (
+      (item.done && currentFilter === "Unmarked") ||
+      (!item.done && currentFilter === "Marked")
+    ) {
+      item.visible = false;
+    }
+    setDone(item.done);
   }
 
-  return (
+  return item.visible ? (
     <div className={done ? "to-do done" : "to-do"} onClick={switchDone}>
-      <span>{text}</span>
+      <span>{item.text}</span>
       <VscClose
         size="2rem"
         onClick={(event) => {
@@ -22,5 +30,5 @@ export default function ToDoItem({ text, removeSelf }) {
         }}
       />
     </div>
-  );
+  ) : null;
 }
