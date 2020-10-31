@@ -13,6 +13,7 @@ import {
 export default function ControlMenu(list) {
   const [nextFilter, setNextFilter] = useState("Unmarked");
   const [nextSorting, setNextSorting] = useState("Alphabetic");
+  const [currentSorting, setCurrentSorting] = useState("Creation_Date");
 
   function printItems() {
     console.log(`Lista de itens:`);
@@ -27,6 +28,7 @@ export default function ControlMenu(list) {
       printItems();
       list.setItems([...list.items.sort((a, b) => a.id - b.id)]);
       printItems();
+      setCurrentSorting(nextSorting);
       setNextSorting("Alphabetic");
     },
     Alphabetic() {
@@ -36,6 +38,7 @@ export default function ControlMenu(list) {
         ...list.items.sort((a, b) => a.text.localeCompare(b.text))
       ]);
       printItems();
+      setCurrentSorting(nextSorting);
       setNextSorting("Creation_Date");
     }
   };
@@ -95,7 +98,7 @@ export default function ControlMenu(list) {
       <div>
         <MdFilterList size="2rem" onClick={toggleOrder[nextSorting]} />
         <small>
-          Order by: <i>Creation Date</i>
+          Order by: <i>{currentSorting.replace("_", " ")}</i>
         </small>
         <HiOutlineFilter size="2rem" onClick={toggleFilter[nextFilter]} />
         <small>
