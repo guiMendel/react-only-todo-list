@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "./styles.css";
 
 // componentes
@@ -10,25 +10,37 @@ export default function ToDoList({
   removeItem,
   currentFilter
 }) {
-  // // Garante que os itens completos estejam sempre embaixo na lista
-  // // Não funciona ainda
-  // useEffect(() => {
-  //   const marked_items = itemList.filter((item) => item.done);
-  //   const unmarked_items = itemList.filter((item) => !item.done);
-  //   setItemList([...unmarked_items, ...marked_items]);
-  // }, [itemList, setItemList]);
+  // Altera um item e atualiza a lista, assim o react sabe que a lista mudou quando apenas um item mudar
+  function alterItem(newItem, id) {
+    // altera a lsita
+    setItemList(itemList.map((item) => (item.id === id ? newItem : item)));
+  }
 
   return (
     <main>
+      {/* Primeiro os itens não marcados */}
       {itemList.map((item) => {
-        return (
+        return !item.done && item.visible ? (
           <ToDoItem
             item={item}
             key={item.id}
+            alterSelf={(newSelf) => alterItem(newSelf, item.id)}
             removeSelf={() => removeItem(item.id)}
             currentFilter={currentFilter}
           />
-        );
+        ) : null;
+      })}
+      {/* Depois os itens marcados */}
+      {itemList.map((item) => {
+        return item.done && item.visible ? (
+          <ToDoItem
+            item={item}
+            key={item.id}
+            alterSelf={(newSelf) => alterItem(newSelf, item.id)}
+            removeSelf={() => removeItem(item.id)}
+            currentFilter={currentFilter}
+          />
+        ) : null;
       })}
     </main>
   );
