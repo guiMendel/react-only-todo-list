@@ -1,2 +1,2 @@
 # react-only-todo-list
-Created with CodeSandbox
+A simple, minimalistic and elegant implementation of a to-do list using only React. Created with CodeSandbox.
