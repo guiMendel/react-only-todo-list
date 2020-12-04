@@ -18,30 +18,24 @@ export default function ToDoList({
 
   return (
     <main>
-      {/* Primeiro os itens não marcados */}
-      {itemList.map((item) => {
-        return !item.done && item.visible ? (
-          <ToDoItem
-            item={item}
-            key={item.id}
-            alterSelf={(newSelf) => alterItem(newSelf, item.id)}
-            removeSelf={() => removeItem(item.id)}
-            currentFilter={currentFilter}
-          />
-        ) : null;
-      })}
-      {/* Depois os itens marcados */}
-      {itemList.map((item) => {
-        return item.done && item.visible ? (
-          <ToDoItem
-            item={item}
-            key={item.id}
-            alterSelf={(newSelf) => alterItem(newSelf, item.id)}
-            removeSelf={() => removeItem(item.id)}
-            currentFilter={currentFilter}
-          />
-        ) : null;
-      })}
+      {[...itemList]
+        // Primeiro os items não marcados
+        .sort((first) => {
+          // O primeiro item vem antes se e somente se ele não estiver pronto
+          if (!first.done) return -1;
+          return 0;
+        })
+        .map((item) => {
+          return item.visible ? (
+            <ToDoItem
+              item={item}
+              key={item.id}
+              alterSelf={(newSelf) => alterItem(newSelf, item.id)}
+              removeSelf={() => removeItem(item.id)}
+              currentFilter={currentFilter}
+            />
+          ) : null;
+        })}
     </main>
   );
 }
